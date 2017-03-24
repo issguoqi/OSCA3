@@ -33,6 +33,17 @@ static void onebyte_exit(void);
  ssize_t onebyte_read(struct file *filep, char *buf, size_t count, loff_t *f_pos) 
  {
 	 /*please complete the function on your own*/ 
+	  //I used copy_to_user method here to put the data to user space
+        //There may be several other functions, e.g. getuser
+        copy_to_user(buf,onebyte_data,1);
+        *f_pos = *f_pos + 1;
+        //judge only one byte is read
+        if(*f_pos > 1)
+        {
+                return 0;
+        }
+        return 1;
+
 } 
 ssize_t onebyte_write(struct file *filep, const char *buf, size_t count, loff_t *f_pos) 
 {
